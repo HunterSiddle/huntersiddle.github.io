@@ -1,10 +1,22 @@
 function filterData() {
   event.preventDefault();
-  var startdate = document.getElementById("startdate").value;
-  var enddate = document.getElementById("enddate").value;
-  console.log(startdate);
-  console.log(enddate );
+  var startdate = new Date(document.getElementById("startdate").value);
+  var enddate = new Date(document.getElementById("enddate").value);
+  
+  var rows = document.querySelectorAll(".blue tbody tr");
+
+  rows.forEach(row => {
+      var dateCell = row.querySelector("td:nth-child(2)").textContent;
+      var rowDate = new Date(dateCell);
+      
+      if (rowDate >= startdate && rowDate <= enddate) {
+          row.style.display = "";
+      } else {
+          row.style.display = "none";
+      }
+  });
 }
+
 
 async function fetchPitchData() {
   try {
